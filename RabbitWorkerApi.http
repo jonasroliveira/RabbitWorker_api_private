@@ -1,0 +1,6 @@
+@RabbitWorkerApi_HostAddress = http://localhost:5264
+
+GET {{RabbitWorkerApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
