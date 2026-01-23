@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using RabbitWorkerApi.DTOs;
 using RabbitWorkerApi.Infrastructure.Messaging;
 
 namespace RabbitWorkerApi.Controllers;
@@ -15,10 +16,9 @@ public class MessagesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] string message)
+    public async Task<IActionResult> Post([FromBody] SendMessageRequestDto request)
     {
-        await _producer.PublishAsync(message);
-
+        await _producer.PublishAsync(request.Content);
         return Accepted();
     }
 }
