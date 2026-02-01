@@ -18,7 +18,17 @@ public class MessagesController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] SendMessageRequestDto request)
     {
-        await _producer.PublishAsync(request.Content);
+        var message = new MessageDto
+        {
+            Id = Guid.NewGuid(),
+            Content = request.Content,
+            CreatedAt = DateTime.UtcNow,
+            Source = "api"
+        };
+
+        await _producer.PublishAsync(message);
+
         return Accepted();
     }
+
 }
